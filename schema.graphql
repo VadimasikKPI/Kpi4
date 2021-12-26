@@ -1,0 +1,78 @@
+
+schema{
+    query: Query
+    mutation: Mutation
+}
+type Mutation{
+    createPackage(name: String!, time: Int!, price: Int!, information: String!):PackageResult!
+    updatePackage(packageid:ID!, name: String, time: Int, price: Int, information: String): PackageResult!
+    deletePackage(packageid:ID):PackageResult!
+    createClient(name: String!, number: String, email: String):ClientResult!
+    updateClient(clientid:ID!, name: String, number: String, email: String):ClientResult!
+    deleteClient(clientid:ID!):ClientResult!
+    createOrder(clientid: Int!, packageid: Int!): OrderResult!
+    updateOrder(orderid:ID!, clientid: Int!, packageid: Int!): OrderResult!
+    deleteOrder(orderid:ID!): OrderResult!
+}
+
+type package{
+    packageid: ID!
+    name: String!
+    time: Int!
+    price: Int!
+    information: String!
+}
+
+type PackageResult {
+    success: Boolean!
+    errors: [String]
+    package: package
+}
+
+type PackagesResult{
+     success: Boolean!
+    errors: [String]
+    packages: [package]
+}
+
+type client{
+    clientid: ID!
+    name: String!
+    number: String!
+    email: String!
+}
+type ClientResult{
+    success: Boolean!
+    errors: [String]
+    client: client
+}
+type ClientsResult{
+    success: Boolean!
+    errors: [String]
+    clients: [client]
+}
+
+type order{
+    orderid: ID!
+    clientid: Int!
+    packageid: Int!
+}
+type OrderResult{
+    success: Boolean!
+    errors: [String]
+    order: order
+}
+type OrdersResult{
+    success: Boolean!
+    errors: [String]
+    orders: [order]
+}
+
+type Query{
+    listPackages:PackagesResult!
+    getPackage(id: ID!): PackageResult!
+    listClients:ClientsResult!
+    getClient(id: ID!): ClientResult!
+    listOrders:OrdersResult!
+    getOrder(id: ID!): OrderResult!
+}
